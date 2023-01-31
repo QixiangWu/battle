@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yibing.generator.mapper.ContractMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yibing.generator.entity.Contract">
+        <id column="id" property="id" />
+        <result column="creater_id" property="createrId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="type" property="type" />
+        <result column="creater_name" property="createrName" />
+        <result column="joiner" property="joiner" />
+        <result column="notice" property="notice" />
+        <result column="level" property="level" />
+        <result column="address" property="address" />
+        <result column="picture" property="picture" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, creater_id, create_time, update_time, start_time, end_time, type, creater_name, joiner, notice, level, address, picture
+    </sql>
+
+</mapper>

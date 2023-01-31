@@ -27,33 +27,35 @@ public class CodeGenerator {
     public static void main(String[] args) {
         // 需要构建一个 代码自动生成器 对象
         AutoGenerator mpg = new AutoGenerator();
-        // 1、全局配置
+        // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("yibing");
-        gc.setOpen(false);
-        gc.setFileOverride(false); // 是否覆盖
-        gc.setServiceName("%sService"); // 去Service的I前缀
-        gc.setIdType(IdType.ASSIGN_ID);
-        gc.setDateType(DateType.ONLY_DATE);
-        gc.setSwagger2(true);
+        gc.setOutputDir(projectPath + "/src/main/java");//设置代码生成路径
+        gc.setFileOverride(false);//是否覆盖以前文件
+        gc.setOpen(false);//是否打开生成目录
+        gc.setAuthor("caochenlei");//设置项目作者名称
+        gc.setIdType(IdType.INPUT);//设置主键策略
+        gc.setDateType(DateType.ONLY_DATE);//定义生成的实体类中日期类型
+        gc.setBaseResultMap(true);//生成基本ResultMap
+        gc.setBaseColumnList(true);//生成基本ColumnList
+        gc.setServiceName("%sService");//去掉服务默认前缀
         mpg.setGlobalConfig(gc);
+
         //2、设置数据源
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://127.0.0.1:3306/store?serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("Ljktn96381$$");
-        dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
         //3、包的配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("store");
         pc.setParent("com.yibing.generator");
         pc.setEntity("entity");
         pc.setMapper("mapper");
+        pc.setXml("mapper.xml");
         pc.setService("service");
+        pc.setServiceImpl("service.impl");
         pc.setController("controller");
         mpg.setPackageInfo(pc);
         //4、策略配置
@@ -63,6 +65,7 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true); // 自动lombok；
         strategy.setLogicDeleteFieldName("deleted");
+
         //5、自动填充配置
         TableFill gmtCreate = new TableFill("gmt_create", FieldFill.INSERT);
         TableFill gmtModified = new TableFill("gmt_modified",
